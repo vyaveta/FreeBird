@@ -1,0 +1,183 @@
+.container {
+    width: 15vw;
+    background-color: red;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1rem;
+    position: relative;
+}
+
+.light {
+    background-color: var(--white);
+    color: var(--primaryDark) !important;
+}
+
+.dark {
+    background-color: var(--black);
+    /* background: linear-gradient(to bottom, #333,var(--black) , var(--black), var(--black)); */
+    color: var(--white);
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--primaryLight);
+    font-family: var(--cursiveFont);
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    /* background-color: red; */
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    height: 3rem;
+    /* border-bottom: 3px solid red; */
+}
+
+.logo {
+    height: 2rem;
+    width: 2rem;
+}
+
+.subLogo {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.dot {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    /* background-color: red; */
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.dot::before {
+    content: '';
+    height: 0.5rem;
+    width: 0.5rem;
+    background-color: var(--primaryLight);
+    border-radius: 50%;
+    z-index: 3;
+    position: absolute;
+    top: 25%;
+    right: 10%;
+}
+
+.active {
+    width: 99%;
+    /* background-color: var(--blue); */
+    /* color: var(--white); */
+    border-right: 7px solid var(--blue);
+    border-radius: 3px;
+    /* border-radius: .3rem; */
+}
+
+.darkmode {
+    width: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+    border: none;
+    background: var(--primaryDark);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 5s ease-in;
+}
+.darkmode:active{
+    width: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+    border: none;
+    background: var(--primaryDark);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+.lightmode{
+    width: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+    border: none;
+    background: var(--primaryDark);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 3s ease-in;
+}
+.lightmode:active{
+    width: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+    border: none;
+    background: var(--primaryDark);
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 2s;
+}
+.darkmodeBox {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.darkmode > *{
+    animation: rotateAnimation 10s infinite;
+}
+.lightmode > *{
+    animation: rotateAnimation 15s infinite;
+}
+
+@keyframes rotateAnimation {
+    0%{
+       transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(195deg);
+    }
+    0%{
+        transform: rotate(360deg)
+    }
+}
+
+@media screen and (max-width:900px){
+    .container h3{
+        display: none;
+    }
+    .darkmodeBox{
+        transform: rotate(90deg);
+        bottom: 2rem !important;
+    }
+}
+
+@media screen and (max-width:700px){
+    .container h1{
+        display: none;
+    }
+}

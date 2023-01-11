@@ -1,0 +1,8 @@
+.container{
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(41, 224, 28);
+    height: 100vh;
+    overflow: hidden;
+}

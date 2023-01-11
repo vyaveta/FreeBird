@@ -1,0 +1,51 @@
+.container{
+    width: 100%;
+    flex: 1;
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 999;
+    flex-direction: column;
+}
+.imageDiv{
+    width: 100%;
+    height: 100%;
+    padding-top: 1rem;
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.greenLine{
+    margin: 0.3rem 0rem;
+    height: 0.3rem;
+    width: 90%;
+    border-radius: 1rem;
+    background-color: green;
+}
+.noGreenLine{
+    margin: 0.3rem 0rem;
+    height: 0.3rem;
+    width: 90%;
+    border-radius: 1rem;
+    background-color: rgb(229, 33, 33);
+}
+.imageIcon{
+    height: 80px;
+    width: 80px;
+}
+.usernameContainer{
+    width: 100%;
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 999;
+    flex-direction: column;
+    padding-top: 4rem !important;
+    flex: 2;
+}

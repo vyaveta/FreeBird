@@ -1,0 +1,197 @@
+
+.login__wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    max-width: 100vw;
+    /* background: url(../public/loginbackground.png); */
+    background: url(https://img5.goodfon.com/wallpaper/nbig/1/63/voskhod-anime-art-kimi-no-na-wa-tvoio-imia-nebo-oblaka.jpg);
+    /* background: url(../public/darkSky.png); */
+    background-size: cover;
+}
+.darkmode{    
+    background-size: cover !important;
+    background: url(https://wallpaperaccess.com/full/2766128.jpg);
+}
+.clouds{
+    max-width: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+}
+.clouds :nth-child(1){
+    width: 100vw;
+    height: 10rem;
+    object-fit: contain;
+    animation: clouds 120s linear infinite;
+}
+.clouds :nth-child(2){
+    position: absolute;
+    top: 1;
+    width: 100vw;
+    height: 10rem;
+    object-fit: contain;
+    animation: clouds2 180s linear infinite;
+}
+
+@keyframes clouds{
+    0% {
+        transform: translateX(-6000px);
+    }
+    100% {
+        transform: translateX(1500px);
+    }
+}
+@keyframes clouds2{
+    0% {
+        transform: translateX(-2000px);
+    }
+    100% {
+        transform: translateX(1500px);
+    }
+}
+
+.login__container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    height: 70vh;
+    min-width: 300px;
+    width: 30vw;
+    /* background: rgba(123, 163, 243, 0.8); */
+    background: white;
+    /* filter: blur(10px); */
+    border-radius: 1rem;
+}
+.login__title h2{
+    /* font-size: 2rem; */
+    color: var(--primaryColor);
+}
+.login__box{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    max-height: 10vh;
+}
+.login__box input{
+    width: 100%;
+    outline: none;
+    border: none;
+    text-align: center;
+    height: 2rem;
+    border-radius: .2rem;
+    background: transparent;
+    color: var(--primaryDark);
+    /* box-shadow: inset 1px 1px 1px 1px #333; */
+    border-bottom: 2px solid #333;
+    font-size: 1rem;
+    font-weight: 700;
+}
+.login__box button{
+    width: 60%;
+    padding: .6rem;
+    border:none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--primaryDark);
+    background-size: 26rem 5rem;
+    border-radius: 0.6rem;
+    color: whitesmoke;
+}
+
+.input__div__2{
+    position: relative;
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+}
+.input__div__2 input {
+    flex: 2;
+}
+.input__div__2 label span{
+    color: green;
+    left: 0;
+    position: absolute ;
+    font-size: 1.4rem;
+}
+.hide{
+    display: hidden;
+}
+.invalid{
+    color: red !important;
+}
+.offscreen{
+    display: hidden;
+}
+.instructions{
+    color: #333;
+    padding: 0 1rem;
+    font-size: 12px;
+}
+.bottom__text{
+    color: var(--primaryColor);
+}
+
+.loginShowPasswordIcon{
+    position: absolute;
+    right: 1% !important;
+    color: var(--primaryDark);
+    font-size: 1.5rem;
+    bottom: 30%;
+}
+.secondContainer{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    flex-direction: column;
+    padding: 2rem 0 !important;
+    flex: 2;
+    gap: 1rem;
+}
+
+.darkmodeBox {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    /* right: 0; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.darkmodeButton{
+    width: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+    border: none;
+    background: var(--primaryDark);
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+.lightmodeButton{
+    width: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 2.2rem;
+    border-radius: 1.2rem;
+    border: none;
+    background: var(--primaryDark);
+    font-size: 1.8rem;
+    cursor: pointer;
+}

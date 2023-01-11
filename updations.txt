@@ -1,0 +1,110 @@
+# update no .3
+* completed the front end work of user login and sign up.
+
+# updation 4
+* Coded the backend routes for the user signup
+
+# updation 5
+* some improvements in the signup ui
+* added cancel token in the axios get request for checking if the username already exits.
+
+#updation 6
+* Userlogin and Signup done
+
+#updation 7
+*working on getInitialProps
+
+#updation 8
+* now collects the user data using the axios req in the useEffect
+
+#updation 9 
+* Working on Home page
+
+#updation 10
+* user Logout done
+
+#updation 11
+* added search feature
+
+#updation 12 
+* implemented redux state management
+* Darkmode and LightMode Done
+
+#updation 13 
+* Setted up the backend routes for posts, i.e like,comment,create,delete etc
+
+#updation 14 
+***** SOLVED THE getInitialProps props data fetching error / reason for the error - the keys in the header will always be a lower case strings.
+
+#updation 15
+* Added posts (without image) 
+* added like and unlike feature to the post.
+
+#updation 16 
+* improved some code
+* added calculate time function 
+* working on comment post (frontend)
+
+#updation 17 
+* improved comment box ui
+
+#updation 18
+* even more improvements in comment box ui
+* now users can change the darkmode in the login page
+
+#updation 19 
+* fixed the like button bug while creating the post (frontend)
+* About to add show post photo feature
+
+#updation 20
+* now users can upload post with pic
+* added drag and drop image while uploading post.
+
+# bug report update
+ -- Newly created Liked posts are the victims, when a user created a post,
+  he/she likes it, when created another new post the before created posts, i.e before reload is shown uliked
+  
+  # bug fix updation - create post bug 
+  -- Status: bug fixed
+  -- To maintain the liked post state, we update the Posts using setPosts , so the liked state is restored.
+
+#updation 23
+* added swith darkmode and lightmode feature in sign up
+
+#updation 24
+* added delete post feature
+
+#updation 25 
+* added comment feature 
+-- bug fix required!!
+
+#updation 26
+* Fixed the bug in comment box
+* improved comment box ui
+
+#updation 27
+* improved comment box ui in darkmode
+
+#updation 28
+* delete comment done!
+
+#updation 29
+* sort comments done
+* doubletap to like post done
+
+#updation 30
+* added like animation on doubletap to the posts that contain image 
+
+#updation 30.1
+* improved the function and Ux for the like post animation on double tap.
+
+#updation 31
+* improved ui responsiveness
+* improved the emoji box ui 
+* fixed the bug in emoji box.
+* improved modile responsiveness
+* add nice little animatio to the darkmode/lightmode button.
+
+#updation 32 
+* fixed a bug in the login page loading animation
+* added a loading animation when creating a post
