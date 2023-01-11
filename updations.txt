@@ -108,3 +108,12 @@
 #updation 32 
 * fixed a bug in the login page loading animation
 * added a loading animation when creating a post
+
+#updation 33
+* moved the project to new repo due to some techical bugs, that cant be fixed by changing the code.
+ -- old repo link - https://github.com/vyaveta/project-FBwithM.git
+
+#updation 34 
+* now the users can doubletap to like a post even if it does not contain image.
+* added likelist feature to posts whith a loading animation.
+* improved ux by making the popup box dissapear when the user clicks somewhere else in the document/webpage.

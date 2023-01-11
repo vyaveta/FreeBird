@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import css from '../../styles/components/CommentInputField.module.css'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import EmojiPicker from 'emoji-picker-react';
+import _ from 'lodash';
 
 // Icons
 import {GrSend} from 'react-icons/gr'
@@ -20,6 +21,16 @@ const CommentInputField = ({postId,user,setAllPosts}) => {
     const [text,setText] = useState('')
     const [loading,setLoading] = useState(false)
     const [showEmojiBox,setShowEmojiBox] = useState(false)
+
+    const handleDocumentClick = something => {
+      setShowEmojiBox(false)
+    }
+
+    const debouncedHandleDocumentClick = _.debounce(handleDocumentClick,200)
+
+    useEffect(() => {
+      document.addEventListener("click",debouncedHandleDocumentClick)
+    },[])
 
     const handleError = msg => {
       toast.error(msg)
@@ -53,7 +64,10 @@ const CommentInputField = ({postId,user,setAllPosts}) => {
   return (
     <div className={css.container}>
         <img src={user.profilePicUrl} />
-        <MdOutlineEmojiEmotions className={css.icon2} onClick={() => setShowEmojiBox(!showEmojiBox)} />
+        <MdOutlineEmojiEmotions className={css.icon2} onClick={(e) => {
+          e.stopPropagation()
+          setShowEmojiBox(!showEmojiBox)
+        }} />
         <div className={css.emojiBoxDiv} >
         {
           showEmojiBox && <EmojiPicker width={'400px'} height={'400px'} theme={'dark'} className={css.emojiBox} onEmojiClick={handleEmojiClick} />

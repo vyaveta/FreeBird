@@ -127,6 +127,7 @@ const CardPost = ({post,user,setPosts}) => {
     // toast.info('clicked')
     // if (postActionBoxRef.current && postActionBoxRef.current.contains(event.target)) {
       setShowPostActions(false);
+      setShowLikeList(false)
     // }
   };
   
@@ -171,7 +172,12 @@ const CardPost = ({post,user,setPosts}) => {
 
 
   return (
-    <div className={darkmode ? `${css.container} ${css.dark}`: css.container}>
+    <div className={darkmode ? `${css.container} ${css.dark}`: css.container}
+    onDoubleClick={() => {
+      setShowLikeAnimation(true)
+      handleLikePost(post._id,true)
+    } }
+    >
       <div className={`${css.box} position-relative`} >
         <div className={css.postMetaLeft}>
           <div className={css.userDetails}>
@@ -208,7 +214,8 @@ const CardPost = ({post,user,setPosts}) => {
       </div>
      {
       post.picUrl &&
-      <div className={`${css.imageBox} cursor-pointer`} onDoubleClick={() => {
+      <div className={`${css.imageBox} cursor-pointer`} 
+      onDoubleClick={() => {
         setShowLikeAnimation(true)
         handleLikePost(post._id,true)
       } } >
@@ -217,7 +224,7 @@ const CardPost = ({post,user,setPosts}) => {
       </div>
      }
           {/* <div className={css.line} /> */}
-      <div className={css.box}>
+       <div className={css.box}>
         <div className={css.actions}>
          <div className={css.actionBox}>
          {
@@ -225,7 +232,10 @@ const CardPost = ({post,user,setPosts}) => {
           }
           &nbsp;
           <p className={`margin-0 cursor-pointer ${css.likesCount}`}
-          onClick={() => setShowLikeList(!showLikeList)}
+          onClick={(e) => {
+            e.stopPropagation()
+            setShowLikeList(!showLikeList)
+          }}
           >{` ${postLikesCount} likes` }</p>
          </div>
          {

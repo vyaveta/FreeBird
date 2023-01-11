@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import css from '../../styles/components/LikesList.module.css'
 import { getUserAuthHeader } from '../../utils/authUser'
 import { routeForThePost } from '../../utils/userRoutes'
+import _ from 'lodash'
 
 // icons
 import {IoMdCloseCircle} from 'react-icons/io'
 
-const LikesList = ({ post, handleError , setShowLikeList}) => {
+  const LikesList = ({ post, handleError , setShowLikeList}) => {
 
   const [likeList, setLikeList] = useState([])
   const [loading, setLoading] = useState(false)
@@ -27,6 +28,7 @@ const LikesList = ({ post, handleError , setShowLikeList}) => {
       setLoading(false)
     }
   }
+
   useEffect(() => {
     getAllLikes(post._id)
   }, [])
