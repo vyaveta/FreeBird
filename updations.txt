@@ -117,3 +117,9 @@
 * now the users can doubletap to like a post even if it does not contain image.
 * added likelist feature to posts whith a loading animation.
 * improved ux by making the popup box dissapear when the user clicks somewhere else in the document/webpage.
+
+#updation 35
+* implimented infinite scroll
+* added loading animation while fetching data
+* fixed a lot of bugs
+* restructured some of the functions 

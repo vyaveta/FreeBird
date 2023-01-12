@@ -14,7 +14,7 @@ import { routeForPostComment } from '../../utils/userRoutes'
 import { getUserAuthHeader } from '../../utils/authUser'
 import {MdOutlineEmojiEmotions} from 'react-icons/md'
 
-const CommentInputField = ({postId,user,setAllPosts}) => {
+const CommentInputField = ({postId,user,setAllPosts,posts,setPosts}) => {
 
     const headers = getUserAuthHeader()
 
@@ -53,7 +53,16 @@ const CommentInputField = ({postId,user,setAllPosts}) => {
         const {data} = await axios.post(`${routeForPostComment}/${postId}`,{text},{headers})
         console.log(data,'from axios')
         if(!data.status) return handleError(data.msg)
-        setAllPosts()
+        let updatedPosts = posts
+        const postIndex = updatedPosts.findIndex(post => post._id == postId)
+        let newComment = data.comment
+        newComment.user = user
+        // updatedPosts[postIndex] = data.post
+        console.log(updatedPosts[postIndex],'is the post!!')
+        // updatedPosts[postIndex].user = user
+        updatedPosts[postIndex].comments.push(newComment)
+        // setPosts(updatedPosts)
+        setAllPosts(updatedPosts.length)
         setText('')
       }catch(e){
         console.log(e,'isth error in comment')

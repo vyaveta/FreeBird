@@ -28,7 +28,7 @@ import LikesList from './LikesList'
 
 
 
-const CardPost = ({post,user,setPosts}) => {
+const CardPost = ({post,user,setPosts,posts}) => {
 
   const reversedComments = post.comments.slice().reverse()
 
@@ -49,6 +49,8 @@ const CardPost = ({post,user,setPosts}) => {
   const [darkmode,setDarkmode] = useState(false)
   const [userCookie,setUserCookie] = useState('')
 
+  const [commentLimit,setCommentLimit] = useState(4)
+
   // Some refs
   const postActionBoxRef = useRef(null)
 
@@ -65,7 +67,13 @@ const CardPost = ({post,user,setPosts}) => {
     if(data.status) {
       setLikes(prev => [...prev,{user:user._id}]) 
       setPostLikesCount(postLikesCount+1)
-      setAllPosts()
+      // setAllPosts()
+      let updatedPosts = posts
+        let postIndex = updatedPosts.findIndex(post => post._id == postId)
+        if(postIndex == -1) return handleError('No post found')
+        console.log(updatedPosts[postIndex].likes,'is th up p')
+        updatedPosts[postIndex].likes.push({user:user._id})
+        setPosts(updatedPosts)
       const imageDiv = document.getElementById(postId)
       if(imageDiv) console.log(imageDiv.styles,'is the image div')
     }else if(!doubleTap) handleError(data.msg)
@@ -91,18 +99,21 @@ const CardPost = ({post,user,setPosts}) => {
         setLikes(prev => prev.filter(like => like.user!==user._id))
         setPostLikesCount(postLikesCount-1)
         setPostLiked(false)
-        setAllPosts()
+        // setAllPosts()
       } 
     }catch(e){
       handleError('Oops Something went wrong')
     }
   }
 
-  const setAllPosts = async () => {
-    const {data} = await axios.get(getAllPostsRoute,{headers})
-    if(!data.status) handleError(postsRes.data.msg)
+  const setAllPosts = async (length) => {
+    console.log(posts,' is the so called posts')
+    const {data} = await axios.get(getAllPostsRoute,{headers,params:{length}})
+    if(!data.status) handleError(data.msg)
     else setPosts(data.posts)
+    console.log(data.posts,'is from bcend')
     if(showLikeAnimation) setShowLikeAnimation(false)
+    
   }
 
   const deletePost = async postId => {
@@ -110,7 +121,9 @@ const CardPost = ({post,user,setPosts}) => {
       const {data} = await axios.delete(`${routeForThePost}/${postId}`,{headers})
       if(!data.status) return handleError(data.msg)
       toast.info('Post deleted')
-      setAllPosts()
+      // setAllPosts()
+      const updatedPosts = posts.filter(post => post._id !== postId)
+      setPosts(updatedPosts)
     }catch(e){
       console.log(e,'is the error')
       handleError('Oops Something went wrong')
@@ -169,6 +182,11 @@ const CardPost = ({post,user,setPosts}) => {
     setPostLikesCount(likes.length)
     setPostCommentsCount(post.comments.length)
   },[post])
+
+  useEffect(() => {
+    console.log(posts,'is the posts')
+    setPosts(posts)
+  },[posts])
 
 
   return (
@@ -262,20 +280,39 @@ const CardPost = ({post,user,setPosts}) => {
           {
             sortCommentsInOldFirst ? 
             reversedComments.map((comment,index) => {
-              if(index < 4) return <PostComments key={index} user={user} post={post} comment={comment} setAllPosts={setAllPosts} darkmode={darkmode} />
+              if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} />
              }) : post.comments.map((comment,index) => {
-              if(index < 4) return <PostComments key={index} user={user} post={post} comment={comment} setAllPosts={setAllPosts} darkmode={darkmode} />
+              if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} />
              })
+
+            // post.comments.map((comment,index) => {
+            //   if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} />
+            //  })
           }
         </div>
       }
       {
         showComments && reversedComments.length > 5 &&
         <div className={css.buttonDiv}>
-         <button className={css.viewMoreButton}>View More</button>
-        </div>
+         <button className={css.viewMoreButton}
+         onClick={() => {
+          setCommentLimit(commentLimit+5)
+         }}
+         >View More</button>
+        </div> 
       }
-      <CommentInputField user={user} postId={post._id} setAllPosts={setAllPosts} />
+      {
+        showComments && commentLimit > 4 && <>
+        <div className={css.buttonDiv}>
+         <button className={css.viewMoreButton}
+         onClick={() => {
+          setCommentLimit(4)
+         }}
+         >Back</button>
+        </div> 
+        </>
+      }
+      <CommentInputField user={user} postId={post._id} setAllPosts={setAllPosts} posts={posts} setPosts={setPosts} />
     </div>
   )
 }

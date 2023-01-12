@@ -11,11 +11,13 @@ import baseUrl from '../utils/baseUrl'
 import Sidemenu from '../components/Sidemenu/Sidemenu'
 import HomeScrollArea from '../components/HomeScrollArea/HomeScrollArea'
 import Search from '../components/Search/Search'
-import { getAllPostsRoute } from '../utils/userRoutes'
+import { getAllPostsRoute, routeForThePost } from '../utils/userRoutes'
 import cookie from "js-cookie";
 import { parseCookies } from "nookies";
 import CreatePost from '../components/Posts/CreatePost'
 import CardPost from '../components/Posts/CardPost'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { getUserAuthHeader } from '../utils/authUser'
 
 export default function Home({user,userFollowStats,postsData}) {
   // console.log(user,'is the user from the index page and its working now ')
@@ -23,12 +25,35 @@ export default function Home({user,userFollowStats,postsData}) {
   const [theuser,setUser] = useState('')
   const [theuserFollowStats,setUserFollowStats] = useState('')
   const [posts,setPosts] = useState(postsData)
-  const [change,setChange] = useState(1)
+  const [hasMore,setHasMore] = useState(true)
+  // const [change,setChange] = useState(1)
 
+  const [pageNumber,setPageNumber] = useState(2)
 
   // useEffect(()=> {
   //   setPosts()
   // },[change])
+
+  const headers = getUserAuthHeader()
+
+  const fetchDataOnScroll = async setLoading => {
+    try{  
+     if(hasMore){
+      console.log('fetch f called')
+      const {data} = await axios.get(routeForThePost,{headers:headers,params:{pageNumber}})
+      if(data.posts.length === 0) setHasMore(false)
+      
+      setPosts(prev => [...prev,...data.posts])
+      setPageNumber(pageNumber + 1)
+     } else return
+    }catch(e){
+      console.log(e,'is the error that occured while fetching more posts')
+    }finally{
+      // setTimeout(() => {
+        setLoading(false)
+      // },6000)
+    }
+  }
 
 
   const getUserData = async() => { // this useEffect is used just in case if the user data is not loaded by the app.js it will collect the user data _Note** this will only work when the _app.js fails to pass user data
@@ -43,6 +68,7 @@ export default function Home({user,userFollowStats,postsData}) {
   }
 
   useEffect(() => {
+    console.log(posts,'is the posts')
     if(!user) getUserData()
     else {
       setUser(user)
@@ -50,6 +76,10 @@ export default function Home({user,userFollowStats,postsData}) {
       document.title = `Welcome ${user.name}`
     }
   },[])
+
+  useEffect(() => {
+    console.log(posts,'is the posts')
+  },[posts])
   // console.log(user,'is the user and userFollowStats are' , userFollowStats)
 
 
@@ -57,12 +87,12 @@ export default function Home({user,userFollowStats,postsData}) {
     <div className={css.container}>
      <HeadTags />
      <Sidemenu user={theuser} />
-     <HomeScrollArea>
+     <HomeScrollArea fetchDataOnScroll={fetchDataOnScroll} hasMore={hasMore} posts={posts}>
       <CreatePost user={user} posts={posts} setPosts={setPosts} />
       <br />
       {
-        posts && posts.map((post,index) => {
-          return <CardPost key={index} post={post} user={user} setPosts={setPosts} />
+        posts.map((post,index) => {
+          return <CardPost key={index} post={post} user={user} setPosts={setPosts} posts={posts} />
         })
       }
      </HomeScrollArea>
@@ -76,7 +106,8 @@ Home.getInitialProps = async (ctx) => {
     const { FreeBirdUserToken } = parseCookies(ctx);
     // console.log(FreeBirdUserToken,'is the token')
     const {data} = await axios.get(getAllPostsRoute, {
-      headers: { FreeBirdUserToken: FreeBirdUserToken }
+      headers: { FreeBirdUserToken: FreeBirdUserToken },
+      params: {pageNumber: 1}
     });
    
     return { postsData: data.posts}

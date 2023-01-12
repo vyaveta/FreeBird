@@ -7,11 +7,12 @@ import { routeForThePost } from './userRoutes'
 const headers = getUserAuthHeader()
 
 
-export const deleteComment = async (commentId,postId,showToastMessage,commentRef) => {
+export const deleteComment = async (commentId,postId,showToastMessage,commentRef,length,setAllPosts) => {
     try{
         const {data} = await axios.delete(`${routeForThePost}/${commentId}/${postId}`,{headers}) 
         if(!data.status) return handleError(data.msg)
         commentRef.current.style.display='none'
+        setAllPosts(length)
         showToastMessage(null,data.msg)
     }catch(e){
         showToastMessage(false,'Oops something went wrong!')

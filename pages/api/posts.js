@@ -42,7 +42,24 @@ router.post('/',userAuthMiddlewareViaHeaders,async(req,res) => {
 //Get all Posts
 router.get('/',userAuthMiddlewareViaHeaders, async(req,res) => {
     try{
-        const posts = await PostModel.find().sort({createdAt: -1}).populate('user').populate('comments.user')
+        console.log(req.query,'is the req qry')
+        const {pageNumber} = req.query
+        const number = Number(pageNumber)
+        const size = 8
+        let posts
+        if(req.query.length){
+            posts = await PostModel.find().sort({createdAt: -1}).limit(req.query.length).populate('user').populate('comments.user')
+        }
+       else if(number === 1)  posts = await PostModel.find().sort({createdAt: -1}).limit(size).populate('user').populate('comments.user')
+        else {
+            const skips = size * (number-1)
+            posts = await PostModel.find()
+            .skip(skips)
+            .limit(size)
+            .sort({ createdAt: -1 })
+            .populate("user")
+            .populate("comments.user");
+        }
         return res.json({status: true, posts})
     }catch(err){
         console.log(err,'is the error that occured while fetching all posts')
@@ -152,7 +169,7 @@ router.post('/comment/:postId',userAuthMiddlewareViaHeaders,async(req,res) => {
         }
         await post.comments.unshift(newComment)
         post.save()
-        return res.json({status: true,msg: 'Done',comment:newComment._id})
+        return res.json({status: true,msg: 'Done',comment:newComment,post})
     }catch(e){
         console.log(e,'is the error that occured in while running the code of commenting the post on backend')
         return res.json({status: false,msg: 'Internal Server Error'})

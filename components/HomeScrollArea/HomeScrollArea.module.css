@@ -34,6 +34,36 @@
     display: none;
 }
 
+.loaderDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.loaderDiv img{
+    object-fit: contain;
+    width: 200px;
+    height: 200px;
+}
+.rewardDiv{
+    width: 100%;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.rewardDiv button{
+    padding: 0.5rem 1rem;
+    background-color: var(--blue);
+    color: var(--white);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
 @media screen and (max-width: 900px){
     .container{
        width: 100%;
