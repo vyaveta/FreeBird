@@ -56,6 +56,8 @@
 * fixed the like button bug while creating the post (frontend)
 * About to add show post photo feature
 
+-------------------------------week 2 updations---------------------------------
+
 #updation 20
 * now users can upload post with pic
 * added drag and drop image while uploading post.
@@ -103,7 +105,7 @@
 * improved the emoji box ui 
 * fixed the bug in emoji box.
 * improved modile responsiveness
-* add nice little animatio to the darkmode/lightmode button.
+* add nice little animation to the darkmode/lightmode button.
 
 #updation 32 
 * fixed a bug in the login page loading animation
@@ -123,3 +125,7 @@
 * added loading animation while fetching data
 * fixed a lot of bugs
 * restructured some of the functions 
+* added a video reward for the users when they reach the bottom.
+
+#updation 36
+* working on the backend code for the userProfile

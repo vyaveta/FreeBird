@@ -19,6 +19,7 @@ nextApp.prepare().then(() => {
    app.use('/api/getUserDetails' , require('./pages/api/getUserDetails'))
    app.use('/api/search' , require('./pages/api/search'))
    app.use('/api/posts' , require('./pages/api/posts'))
+   app.use('/api/profile' , require('./pages/api/profile') )
 
     app.all('*' , (req,res) => handle(req,res))
     server.listen(PORT, err => {

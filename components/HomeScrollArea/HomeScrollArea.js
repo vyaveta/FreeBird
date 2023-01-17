@@ -30,10 +30,11 @@ const HomeScrollArea = ({children,hasMore,fetchDataOnScroll,posts}) => {
     e.target.requestFullscreen()
   }
   useEffect(() => {
-    scrollContainerRef.current.addEventListener('scroll', handleScroll);
-    return () => {
-      scrollContainerRef.current.removeEventListener('scroll', handleScroll);
-    };
+    try{
+      scrollContainerRef.current.addEventListener('scroll', handleScroll);
+    }catch(e){
+      console.log(e,'is the error')
+    }
   },[hasMore, posts])
 
   useEffect(() => {
