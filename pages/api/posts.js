@@ -194,7 +194,7 @@ router.delete('/:commentId/:postId',userAuthMiddlewareViaHeaders,async(req,res) 
             const index = post.comments.map(comment => comment._id).indexOf(commentId)
             await post.comments.splice(index,1)
             await post.save()
-            return res.json({status: true,msg: 'Comment deleted!'})
+            return res.json({status: true,msg: 'Comment deleted!',commentLength: post.comments.length})
         }
 
         if(comment.user.toString()!==userId){

@@ -3,6 +3,7 @@ import css from './HomeScrollArea.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 // import { decrement, increment } from './counterSlice'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import _ from 'lodash'
 
 
 const HomeScrollArea = ({children,hasMore,fetchDataOnScroll,posts}) => {
@@ -18,24 +19,27 @@ const HomeScrollArea = ({children,hasMore,fetchDataOnScroll,posts}) => {
     // console.log(scrollContainerRef.current.clientHeight,'is the scrollContainerRef.current.clientHeight')
     // console.log('scrollContainerRef.current.scrollTop :', scrollContainerRef.current.scrollTop)
     // console.log(' scrollContainerRef.current.scrollHeight : ', scrollContainerRef.current.scrollHeight)
-    // console.log(hasMore,'is the hasMore')
-    if (!hasMore) return
-    else if (Math.floor(scrollContainerRef.current.clientHeight + scrollContainerRef.current.scrollTop) >= (scrollContainerRef.current.scrollHeight-2)) {
-      setLoading(true)
+    console.log(hasMore,'is the hasMore')
+     if (hasMore && Math.floor(scrollContainerRef.current.clientHeight + scrollContainerRef.current.scrollTop) >= (scrollContainerRef.current.scrollHeight-2)) {
+      // setLoading(true)
       fetchDataOnScroll(setLoading)
     }  
-  };
+  
+  }
+
+  const debouncedHandleScroll = _.debounce(handleScroll,1000)
 
   const playVideo = e => {
+    // alert('helo from playVideo')
     e.target.requestFullscreen()
   }
   useEffect(() => {
     try{
-      scrollContainerRef.current.addEventListener('scroll', handleScroll);
+      scrollContainerRef.current.addEventListener('scroll', debouncedHandleScroll);
     }catch(e){
       console.log(e,'is the error')
     }
-  },[hasMore, posts])
+  },[])
 
   useEffect(() => {
     setIsDarkMode(darkmode)

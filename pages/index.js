@@ -25,10 +25,12 @@ export default function Home({user,userFollowStats,postsData}) {
   const [theuser,setUser] = useState('')
   const [theuserFollowStats,setUserFollowStats] = useState('')
   const [posts,setPosts] = useState(postsData)
-  const [hasMore,setHasMore] = useState(true)
+  // const [hasMore,setHasMore] = useState(true)
   // const [change,setChange] = useState(1)
 
-  const [pageNumber,setPageNumber] = useState(2)
+  // const [pageNumber,setPageNumber] = useState(2)
+  let pageNumber = 2
+  let hasMore = true
 
   // useEffect(()=> {
   //   setPosts()
@@ -39,13 +41,23 @@ export default function Home({user,userFollowStats,postsData}) {
   const fetchDataOnScroll = async setLoading => {
     try{  
      if(hasMore){
+      setLoading(true)
       console.log('fetch f called')
       const {data} = await axios.get(routeForThePost,{headers:headers,params:{pageNumber}})
-      if(data.posts.length === 0) setHasMore(false)
-      
+      console.log(data.posts.length,'is the post length')
+      if(data.posts.length === 0 || data.posts.length < 8) {
+        hasMore = false
+        // setHasMore(false)
+        // alert(hasMore,'is the state')
+      }
+
       setPosts(prev => [...prev,...data.posts])
-      setPageNumber(pageNumber + 1)
-     } else return
+      pageNumber++
+      // setPageNumber(pageNumber + 1)
+      console.log(pageNumber,'is the page')
+     }else{
+      console.log('reached at the bottom!')
+     }
     }catch(e){
       console.log(e,'is the error that occured while fetching more posts')
     }finally{

@@ -129,3 +129,6 @@
 
 #updation 36
 * working on the backend code for the userProfile
+
+#bug fix update 37
+* working on profile api's and done some bug fixes in the InfiniteScroll and refactored some functions to make it efficient.

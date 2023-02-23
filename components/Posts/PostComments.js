@@ -12,7 +12,7 @@ import {BsDot} from 'react-icons/bs'
 import { calculateTime } from '../../utils/calculateTime'
 import { deleteComment } from '../../utils/postActions'
 
-const PostComments = ({post,comment,user,darkmode,posts,setAllPosts}) => {
+const PostComments = ({post,comment,user,darkmode,posts,setAllPosts,setPostCommentsCount}) => {
 
   const commentRef = useRef(null)
 
@@ -56,7 +56,7 @@ const PostComments = ({post,comment,user,darkmode,posts,setAllPosts}) => {
              <ul>
                <li>Edit <MdEdit /></li>
                <li
-               onClick={() => deleteComment(comment._id,post._id,showToastMessage,commentRef,posts.length,setAllPosts)} 
+               onClick={() => deleteComment(comment._id,post._id,showToastMessage,commentRef,posts.length,setAllPosts,setPostCommentsCount)} 
                >Delete <MdDelete /></li>
                {/* <li>Report  <IoIosFlag /></li> */}
              </ul>

@@ -112,6 +112,7 @@ router.put('/follow/:userToFollowId',userAuthMiddlewareViaHeaders, async (req,re
             await loggedInUserFollowStats.save()
         }).catch((e) => {
             console.log(e,'is why that is not getting saved')
+            return res.json({status: false, msg: 'Internal server error'})
         })
         return res.json({status: true, msg: 'Done'})
     }catch(e){
@@ -132,8 +133,12 @@ router.put('/unfollow/:userToUnfollowId',userAuthMiddlewareViaHeaders,async(req,
         await loggedInUserFollowStats.following.splice(loggedInUserFollowStats.following.findIndex(following => following.user.toString() == userToUnfollowId),1)
         if(userToUnfollowStats.followers.filter(followers => followers.user.toString() == userId ).length <= 0) return res.json({status: null, msg: 'Bruh....Think about it bro, think about it..How can you unfollow someone without following them....think about it bruh, think about it ....'})
         await userToUnfollowStats.followers.splice(userToUnfollowStats.followers.findIndex(followers => followers.user.toString() == userId),1)
-        await loggedInUserFollowStats.save()
-        await userToUnfollowStats.save()
+        await loggedInUserFollowStats.save().then(async() => {
+            await userToUnfollowStats.save()
+        }).catch((e) => {
+            console.log(e,'is the error occured in while saving the data')
+            return res.json({status: false, msg: 'Internal Error'})
+        })
         return res.json({status: true, msg: 'Done'})
     }catch(e){
         console.log(e,'is the error that occured in while running the code for unfollowing a user')

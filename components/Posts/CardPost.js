@@ -280,9 +280,9 @@ const CardPost = ({post,user,setPosts,posts}) => {
           {
             sortCommentsInOldFirst ? 
             reversedComments.map((comment,index) => {
-              if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} />
+              if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} setPostCommentsCount={setPostCommentsCount} />
              }) : post.comments.map((comment,index) => {
-              if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} />
+              if(index < commentLimit) return <PostComments key={index} user={user} post={post} comment={comment} posts={posts} setAllPosts={setAllPosts} darkmode={darkmode} setPostCommentsCount={setPostCommentsCount} />
              })
 
             // post.comments.map((comment,index) => {
@@ -292,7 +292,7 @@ const CardPost = ({post,user,setPosts,posts}) => {
         </div>
       }
       {
-        showComments && reversedComments.length > 5 &&
+        showComments && reversedComments.length > 5 && 
         <div className={css.buttonDiv}>
          <button className={css.viewMoreButton}
          onClick={() => {

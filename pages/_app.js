@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-MyApp.getInitialProps = async({Component,ctx}) => {
+MyApp.getInitialProps = async({Component,ctx}) => {0
   try{
     const {FreeBirdUserToken} = parseCookies(ctx)
     const protectedRoutes = ctx.pathname === '/' ||
